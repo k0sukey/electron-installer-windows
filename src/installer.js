@@ -125,7 +125,7 @@ var getDefaults = function (data, callback) {
 
       iconUrl: undefined,
       licenseUrl: undefined,
-      requireLicenseAcceptance: false,
+      requireLicenseAcceptance: 'false',
 
       tags: [],
 
@@ -163,7 +163,7 @@ var generateTemplate = function (options, file, callback) {
     function (template, callback) {
       var result = _.template(template)(options)
       options.logger('Generated template from ' + file + '\n' + result)
-      callback(null, result)
+      callback(null, result.replace(/\s{4}\n/mg, ''))
     }
   ], callback)
 }

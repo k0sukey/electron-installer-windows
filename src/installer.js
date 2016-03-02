@@ -162,8 +162,9 @@ var generateTemplate = function (options, file, callback) {
     async.apply(fs.readFile, file),
     function (template, callback) {
       var result = _.template(template)(options)
+      result = result.replace(/\s{4}\n/mg, '');
       options.logger('Generated template from ' + file + '\n' + result)
-      callback(null, result.replace(/\s{4}\n/mg, ''))
+      callback(null, result)
     }
   ], callback)
 }

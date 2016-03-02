@@ -153,16 +153,68 @@ var getOptions = function (data, defaults, callback) {
 }
 
 /**
+ * Get the file list
+ */
+
+var walkDir = function(dir, callback) {
+  var results = []
+
+  fs.readdir(dir, function(err, list) {
+    if (err) return callback(err)
+
+    var pending = list.length
+    if (!pending) return callback(null, results)
+
+    list.forEach(function (file) {
+      file = path.resolve(dir, file)
+
+      fs.stat(file, function(err, stat) {
+        if (stat && stat.isDirectory()) {
+          walkDir(file, function(err, res) {
+            results = results.concat(res)
+            if (!--pending) callback(null, results)
+          })
+        } else {
+          results.push(file)
+          if (!--pending) callback(null, results)
+        }
+      });
+    });
+  });
+};
+
+/**
  * Fill in a template with the hash of options.
  */
 var generateTemplate = function (options, file, callback) {
   options.logger('Generating template from ' + file)
+  var localesDir = path.join(options.src, 'locales')
+  var resourcesDir = path.join(options.src, 'resources')
+  var locales = []
+  var resources = []
 
   async.waterfall([
+    async.apply(walkDir, localesDir),
+    function (paths, callback) {
+      paths.forEach(function (part) {
+        locales.push(part.replace(localesDir + path.sep, ''));
+      })
+      callback(null);
+    },
+    async.apply(walkDir, resourcesDir),
+    function (paths, callback) {
+      paths.forEach(function (part) {
+        resources.push(part.replace(resourcesDir + path.sep, ''));
+      })
+      callback(null);
+    },
     async.apply(fs.readFile, file),
     function (template, callback) {
-      var result = _.template(template)(options)
-      result = result.replace(/\s{4}\n/mg, '');
+      var result = _.template(template)(_.assign(options, {
+        locales: locales,
+        resources: resources
+      }))
+      result = result.replace(/\s{4}\n/mg, '').replace(/\n\n/mg, '\n');
       options.logger('Generated template from ' + file + '\n' + result)
       callback(null, result)
     }

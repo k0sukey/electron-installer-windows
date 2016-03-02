@@ -16,62 +16,10 @@
     <% if (tags && tags.length) { %><tags><%- tags.join(' ') %></tags><% } %>
   </metadata>
   <files>
-    <file src="locales/am.pak" target="lib\net45\locales" />
-    <file src="locales/de.pak" target="lib\net45\locales" />
-    <file src="locales/fa.pak" target="lib\net45\locales" />
-    <file src="locales/hi.pak" target="lib\net45\locales" />
-    <file src="locales/ko.pak" target="lib\net45\locales" />
-    <file src="locales/nl.pak" target="lib\net45\locales" />
-    <file src="locales/sl.pak" target="lib\net45\locales" />
-    <file src="locales/tr.pak" target="lib\net45\locales" />
-    <file src="locales/ar.pak" target="lib\net45\locales" />
-    <file src="locales/el.pak" target="lib\net45\locales" />
-    <file src="locales/fake-bidi.pak" target="lib\net45\locales" />
-    <file src="locales/hr.pak" target="lib\net45\locales" />
-    <file src="locales/lt.pak" target="lib\net45\locales" />
-    <file src="locales/pl.pak" target="lib\net45\locales" />
-    <file src="locales/sr.pak" target="lib\net45\locales" />
-    <file src="locales/uk.pak" target="lib\net45\locales" />
-    <file src="locales/bg.pak" target="lib\net45\locales" />
-    <file src="locales/en-GB.pak" target="lib\net45\locales" />
-    <file src="locales/fi.pak" target="lib\net45\locales" />
-    <file src="locales/hu.pak" target="lib\net45\locales" />
-    <file src="locales/lv.pak" target="lib\net45\locales" />
-    <file src="locales/pt-BR.pak" target="lib\net45\locales" />
-    <file src="locales/sv.pak" target="lib\net45\locales" />
-    <file src="locales/vi.pak" target="lib\net45\locales" />
-    <file src="locales/bn.pak" target="lib\net45\locales" />
-    <file src="locales/en-US.pak" target="lib\net45\locales" />
-    <file src="locales/fil.pak" target="lib\net45\locales" />
-    <file src="locales/id.pak" target="lib\net45\locales" />
-    <file src="locales/ml.pak" target="lib\net45\locales" />
-    <file src="locales/pt-PT.pak" target="lib\net45\locales" />
-    <file src="locales/sw.pak" target="lib\net45\locales" />
-    <file src="locales/zh-CN.pak" target="lib\net45\locales" />
-    <file src="locales/ca.pak" target="lib\net45\locales" />
-    <file src="locales/es-419.pak" target="lib\net45\locales" />
-    <file src="locales/fr.pak" target="lib\net45\locales" />
-    <file src="locales/it.pak" target="lib\net45\locales" />
-    <file src="locales/mr.pak" target="lib\net45\locales" />
-    <file src="locales/ro.pak" target="lib\net45\locales" />
-    <file src="locales/ta.pak" target="lib\net45\locales" />
-    <file src="locales/zh-TW.pak" target="lib\net45\locales" />
-    <file src="locales/cs.pak" target="lib\net45\locales" />
-    <file src="locales/es.pak" target="lib\net45\locales" />
-    <file src="locales/gu.pak" target="lib\net45\locales" />
-    <file src="locales/ja.pak" target="lib\net45\locales" />
-    <file src="locales/ms.pak" target="lib\net45\locales" />
-    <file src="locales/ru.pak" target="lib\net45\locales" />
-    <file src="locales/te.pak" target="lib\net45\locales" />
-    <file src="locales/da.pak" target="lib\net45\locales" />
-    <file src="locales/et.pak" target="lib\net45\locales" />
-    <file src="locales/he.pak" target="lib\net45\locales" />
-    <file src="locales/kn.pak" target="lib\net45\locales" />
-    <file src="locales/nb.pak" target="lib\net45\locales" />
-    <file src="locales/sk.pak" target="lib\net45\locales" />
-    <file src="locales/th.pak" target="lib\net45\locales" />
-    <file src="resources/app.asar" target="lib\net45\resources" />
-    <file src="resources/atom.asar" target="lib\net45\resources" />
+<% _.each(locales, function(locale) { %>    <file src="locales/<%- locale %>" target="lib\net45\locales" />
+<% }) %>
+<% _.each(resources, function(resource) { %>    <file src="resources/<%- resource %>" target="lib\net45\resources" />
+<% }) %>
     <file src="*.bin" target="lib\net45" />
     <file src="*.dll" target="lib\net45" />
     <file src="*.pak" target="lib\net45" />
